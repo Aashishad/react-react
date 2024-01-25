@@ -1,0 +1,133 @@
+<!-- // ------------form-----------{
+  // const [n, setN] = useState('');
+    
+  
+  //   function myfunction(e,n){
+  //     e.preventDefault();
+  //     console.log(n);}
+  //--------------form----------------
+  
+  // <div>
+
+
+    //  <form onSubmit={(e) => myfunction(e, n)}>
+    //  <input onChange={(e) => setN(e.target.value)} type="text" name='text' placeholder='somes' />
+    //  <button  onSubmit={(e) => myfunction(e,n)} type='submit'>submit</button>
+    //  </form>
+     
+    //   <div className='m-10 h-10 w-10 bg-red-800 animate-spin'>
+
+    //   </div>
+    //   <div>
+    //    <h1>salary</h1> <input id="salary" type="number"/>
+    //   <h1>expense</h1> <input id="expense" type="number"/> 
+    //   <button type="button" onClick={myfunction}>Submit</button>
+    //   <h1 id="demo"></h1>
+    //   </div>
+    // </div> -->
+
+
+<!-- ===================================== -->
+
+<!-- // let personName = 'nimo';
+// let sonName = 'nothing';
+// const name ='hello what\'s app \n qwerty';
+// const age ='26';
+// const rating = 9.999;
+// console.log(name);
+// console.log(rating.toFixed(0));
+// console.log(sonName.replace(sonName, personName));
+// console.log(personName.split().concat(sonName, 'this is your name'));
+// console.log(personName.includes('o'));
+
+// console.log(personName.indexOf('n'));
+
+
+
+// if (a > b){
+//   return 'You have saved this month';
+// }else{
+//  return 'You have not saved  this month';
+// }
+
+// }
+
+// for( let i=1; i<=15;i++){
+//   if(i % 3 === 0 && i% 5 === 0) {
+//     console.log(`fizzbuzz ${i}`);
+//   }
+//   else if (i % 3 === 0) {
+//     console.log(`fizz ${i}`);
+//   }
+//   else if(i % 5 === 0){
+//     console.log(`buzz ${i}`);
+//   }
+     //  <div>
+        //   <h1 className='underline'>{personName} {per}</h1>
+        //     <h1 className='text-2xl uppercase'>hello</h1>
+        //  </div>
+        // <div>
+        //    <h1>{`hi ${name} ${age} ${rating}`}</h1>
+        //    <h1>{name.substring(0,8)+'...'}</h1>
+        // // </div>
+
+----------------------------------
+const persons = ['ram', 'shyam', 'hari', 'rita'];
+  const datas = ['1nio','2jio','3sio'];
+  const numbers = [11,22,33,44,55,66,77,88,99];
+  let sum =0;
+  numbers.forEach((n)=>
+  {
+    for (let i = n; i <= n; i++) {
+      if (i % 2 === 0) {
+        sum += i;
+      }
+    }
+    
+  });
+  console.log(sum);
+  const n2 = numbers.map((a,b)=>{
+    return b +'';
+  })
+  console.log(n2);
+  // single value return
+  const findGreat40 = numbers.find((n) => {
+    return n > 40;
+  });
+
+  // multiple value return
+  const findGreat20 = numbers.filter((n) => {
+    return n > 90;
+  });
+  console.log(findGreat20.length === 0);
+  console.log(findGreat20);
+  console.log(findGreat40);
+  const x=numbers.length;
+  const nun = numbers.reduce((a,b)=>{
+    return a+b;
+  });
+  const y = nun/x;
+  console.log(y);
+
+--------------------------------
+                     <div className='p-2'>
+
+<h1 className='font-bold text-2xl'>Users</h1>
+<div>
+  {persons.map((per, i) => {
+    return <h1 key={i}>{per}</h1>
+  })}
+ <div>
+        {datas.map((per, i) => {
+          return <h1 key={i}>{`${per.substring(0, 1)} ${per.substring(1, per.length).toUpperCase()}`}</h1>
+        })}
+        
+      </div>
+</div>
+
+
+
+
+
+</div>
+// } -->
