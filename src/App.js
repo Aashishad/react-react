@@ -1,20 +1,31 @@
 import React from 'react'
-import Header from './components/Header';
-import DisplaySection from './homepage/DisplaySection';
-import Techno from './homepage/Techno';
-import Introduction from './homepage/Introduction';
-import Footer from './homepage/Footer';
+import HomePage from './pages/HomePage'
+import { Route, Routes } from 'react-router'
+import About from './pages/About'
+import NotFound from './pages/NotFound'
+import Contact from './pages/Contact'
+import RootLayout from './components/RootLayout'
+import SamplePage from './pages/SamplePage'
+
 
 const App = () => {
 
   return (
-    <div >
-      <Header />
-      <DisplaySection />
-      <Techno />
-      <Introduction />
-      <Footer/>
-    </div>
+    <>
+      
+      <Routes>
+        <Route element={<RootLayout />}>
+
+        <Route path='/' element={<HomePage />} />
+        <Route path='about' element={<About />} />
+        <Route path='*' element={<NotFound />} />
+        <Route path='contact' element={<Contact />} />
+        <Route path='sample/:id' element={<SamplePage />} />
+        </Route>
+        
+
+     </Routes>
+    </>
   )
 }
 

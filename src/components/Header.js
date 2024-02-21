@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
-const Header =()=> {
+const Header = () => {
+
+  const [toggle, setToggle] = useState(false);
+  const change = () => {
+    setToggle(!toggle);
+  }
+
   return (
-    <div className='flex justify-between bg-black text-white px-[20px] py-3 items-baseline sticky z-50'>
-      <h1 className='text-2xl'>Demo</h1>
-      <nav className='space-x-3'>
-      <button class=" hidden sm:flex cursor-pointer ml-auto relative w-12 h-12 p-4">
-      <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-     
-    </button>
-        <button>About</button>
-        <button>Contact</button>
+    <div className='flex justify-between bg-black text-white px-2 py-1 items-start'>
+      <div className='space-y-2'>
+        <h1>Logo</h1>
+        {toggle && <nav className='flex-col msm:flex hidden'>
+          <NavLink to='/about'>About</NavLink>
+          <NavLink to='/contact'>Contact</NavLink>
+          <NavLink to='/sample/900'>Sample</NavLink>
+        </nav>}
+      </div>
+
+
+      <div className='hidden msm:flex'>
+        {toggle ? <button onClick={change}><i className="fa-solid fa-xmark"></i></button> : <button onClick={change}><i className="fa-solid fa-bars"></i></button>}
+      </div>
+
+
+
+      <nav className='space-x-3 msm:hidden'>
+        <NavLink to='/about'>About</NavLink>
+        <NavLink to='/contact'>Contact</NavLink>
+        <NavLink to='/sample/900'>Sample</NavLink>
       </nav>
-      
+
+
     </div>
   )
 }
