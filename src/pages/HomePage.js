@@ -1,27 +1,42 @@
 import React from 'react'
-import CardDisplay from '../components/CardDisplay'
-
-
+import { useState } from 'react';
+import { getPopular, imageUrl } from '../components/constants';
+import { useApi } from '../hooks/apiHooks';
 
 const HomePage = () => {
 
-  const title1 = 'This is Card1';
-  const title2 = 'This is Crad2';
-  const detail1 = 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat, eveniet!';
-  const detail2 = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque quaerat id nobis minus, illo omnis.';
 
+  const [page, setpage] = useState(1);
+
+  const [load, err, data] = useApi(getPopular, page);
+  if (load) {
+    return <h1>LoaDING....</h1>;
+  }
+  // if (err) {
+  //   return <h1>{err}</h1>
+  // }
   return (
     <div>
-      <h1>This is a HomePage</h1>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero cum obcaecati vero, sed nam tenetur ducimus atque illum tempore iste.</p>
 
-      <div className='flex justify-center space-x-10 px-4'>
+      <div className='pages space-x-7'>
+        <button onClick={() => setpage((prev) => {
+          if (prev > 1) {
+            return prev - 1;
+          }
+        })}>Previous</button>
         
-      <CardDisplay title = {title1} detail={detail1}/>
-      <CardDisplay title = {title2} detail={detail2}/>
+        <button onClick={() => setpage((prev) => prev + 1)}>Next</button>
       </div>
+
+      {data && data.map((movie) => {
+        return <div key={movie.id}>
+          <h1>{movie.title}</h1>
+          <img src={`${imageUrl}${movie.poster_path}`} alt="" />
+        </div>
+      })}
+
+
     </div>
-    
   )
 }
 
