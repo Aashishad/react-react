@@ -6,6 +6,13 @@ import { useApi } from '../hooks/apiHooks';
 const HomePage = () => {
 
 
+  const [movieData, setData] = useState([]);
+
+  const getMovie = async () => {
+    try {
+    
+  } catch (err){}
+}
   const [page, setpage] = useState(1);
 
   const [load, err, data] = useApi(getPopular, page);
