@@ -1,22 +1,24 @@
 import React, { useState } from 'react'
 import { Input, Button, Checkbox, Option, Select, Textarea } from "@material-tailwind/react";
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Radio } from "@material-tailwind/react";
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
-import { addUser } from '../features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../features/userSlice';
 
 
 
-const UserForm = () => {
+const EditForm = () => {
+
+  const { user } = useSelector((state) => state.userInfo);
+
+
+
   const dispatch = useDispatch();
-
   const nav = useNavigate();
 
   const userSchema = Yup.object({
-    // email: Yup.string().matches(/^[a-z\s]{0,255}$/i, 'please provide valid mail').required('add required'),
     email: Yup.string().matches(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'please provide valid mail').required('add required'),
     username: Yup.string().min(5).max(20).required(),
     image: Yup.mixed().test('fileType', 'invalid image', (e) => {
@@ -32,19 +34,19 @@ const UserForm = () => {
   const formik = useFormik({
 
     initialValues: {
-      email: '',
-      username: '',
-      subject: '',
-      habits: [],
-      country: '',
-      msg: '',
+      email: user.email,
+      username: user.username,
+      subject: user.subject,
+      habits: user.habits,
+      country: user.country,
+      msg: user.msg,
       image: null,
-      imageRev: ""
+      imageRev: user.imageRev
     },
 
     onSubmit: (val, { resetForm }) => {
 
-      dispatch(addUser({
+      dispatch(updateUser({
         email: val.email,
         username: val.username,
         subject: val.subject,
@@ -52,13 +54,14 @@ const UserForm = () => {
         country: val.country,
         msg: val.msg,
         imageRev: val.imageRev,
-        id: nanoid()
+        id: user.id
       }));
 
       nav(-1);
 
     },
-    validationSchema: userSchema,
+    //validationSchema: userSchema,
+
 
   });
 
@@ -84,7 +87,7 @@ const UserForm = () => {
               onChange={formik.handleChange}
               value={formik.values.email}
               type='email'
-
+              readOnly
               name='email'
             />
             {formik.errors.email && formik.touched.username && <h1>{formik.errors.email}</h1>}
@@ -111,6 +114,7 @@ const UserForm = () => {
               {programes.map((p, i) => {
                 return <Radio key={i}
                   name="subject"
+                  checked={formik.values.subject === p.value ? true : false}
                   onChange={formik.handleChange}
                   label={p.label} value={p.value} color={p.color} />;
               })}
@@ -125,6 +129,7 @@ const UserForm = () => {
               {habits.map((p, i) => {
                 return <Checkbox key={i}
                   name="habits"
+                  checked={formik.values.habits.includes(p.value)}
                   onChange={formik.handleChange}
                   label={p.label} value={p.value} color={p.color} />;
               })}
@@ -134,8 +139,10 @@ const UserForm = () => {
           </div>
 
           <div className="flex w-72 flex-col gap-6">
-            <Select size="md" label="Select Country" name='country' onChange={(e) => formik.setFieldValue('country', e)} >
-              <Option value='nepal'>Nepal</Option>
+            <Select
+              value={user.country}
+              size="md" label="Select Country" name='country' onChange={(e) => formik.setFieldValue('country', e)} >
+              <Option value='nepal' >Nepal</Option>
               <Option value='india'>India</Option>
               <Option value='china'>China</Option>
             </Select>
@@ -177,16 +184,6 @@ const UserForm = () => {
       </form>
 
 
-      {/* <div className="users mt-4 space-y-5">
-        {data.map((user, i) => {
-          return <div key={i} className='shadow-lg'>
-            <h1>{user.email}</h1>
-            <p>{user.username}</p>
-            <button>Remove</button>
-          </div>
-        })}
-      </div> */}
-
 
 
 
@@ -195,4 +192,4 @@ const UserForm = () => {
   )
 }
 
-export default UserForm
+export default EditForm
